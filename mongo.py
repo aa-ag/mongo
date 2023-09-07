@@ -1,13 +1,23 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import os
 from dotenv import load_dotenv
+import os
+import json
+
 
 load_dotenv()
 uri=os.environ.get("URI")
-client = MongoClient(uri, server_api=ServerApi('1'))
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+
+
+def set_mongo_client():
+    client = MongoClient(uri, server_api=ServerApi('1'))
+    try:
+        client.admin.command('ping')
+        return client
+    except Exception as e:
+        print(e)
+        return 
+
+
+if __name__ == "__main__":
+    set_mongo_client()

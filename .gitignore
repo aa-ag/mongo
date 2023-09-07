@@ -1,5 +1,6 @@
 mongoenv
 .env
+inputs
 
 # Settings or config
 settings

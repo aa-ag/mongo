@@ -23,8 +23,9 @@ def set_mongo_client():
 def insert_data_into_mongodb(mongo_client):
     database = mongo_client["testdb"]
     collection = database["fake_data"]
-    example = {"name": "John", "lastname": "Doe"}
-    collection.insert_one(example)
+    with open("inputs/fake_data.json") as jsonfile:
+        contents = json.load(jsonfile)
+        collection.insert_many(contents)
 
 
 if __name__ == "__main__":

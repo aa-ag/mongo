@@ -16,8 +16,18 @@ def set_mongo_client():
         return client
     except Exception as e:
         print(e)
-        return 
+        return
+
+
+def insert_data_into_mongodb(mongo_client):
+    db = mongo_client["fake_data"]
+    Collection = db["fake_data"]
+    with open('inputs/fake_data.json') as file:
+        file_data = json.load(file)
+    Collection.insert_many(file_data)
 
 
 if __name__ == "__main__":
-    set_mongo_client()
+    mongo_client = set_mongo_client()
+    if mongo_client:
+        insert_data_into_mongodb(mongo_client)

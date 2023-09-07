@@ -9,6 +9,7 @@ import requests
 
 load_dotenv()
 uri=os.environ.get("URI")
+apikey=os.environ.get("APIKEY")
 
 
 def set_mongo_client():
@@ -36,9 +37,22 @@ def query_mongo_db(mongo_client):
         print(record)
 
 
+def get_data_from_api():
+    url = "https://mashape-community-urban-dictionary.p.rapidapi.com/define"
+    querystring = {"term":"nope"}
+    headers = {
+        "X-RapidAPI-Key": "5c7216f484msh56565761e802c49p1e6e56jsnc82ebfad10ef",
+        "X-RapidAPI-Host": "mashape-community-urban-dictionary.p.rapidapi.com"
+    }
+    response = requests.get(url, headers=headers, params=querystring)
+    return response.json()
+
+
 if __name__ == "__main__":
-    mongo_client = set_mongo_client()
-    if mongo_client:
+    response_from_api = get_data_from_api()
+    print(response_from_api)
+    # mongo_client = set_mongo_client()
+    # if mongo_client:
         # insert_data_into_mongodb(mongo_client)
         # query_mongo_db(mongo_client)
-        insert_response_into_mongodb(mongo_client)
+        

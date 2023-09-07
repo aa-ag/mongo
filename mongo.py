@@ -1,16 +1,13 @@
-import pymongo
-import json
-from pymongo import MongoClient, InsertOne
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+import os
+from dotenv import load_dotenv
 
-client = pymongo.MongoClient(<CONNECTION STRING>)
-db = client.<DATABASE>
-collection = db.<COLLECTION>
-requesting = []
-
-with open(r"<FILENAME>") as f:
-    for jsonObj in f:
-        myDict = json.loads(jsonObj)
-        requesting.append(InsertOne(myDict))
-
-result = collection.bulk_write(requesting)
-client.close()
+load_dotenv()
+uri=os.environ.get("URI")
+client = MongoClient(uri, server_api=ServerApi('1'))
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)

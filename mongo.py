@@ -32,7 +32,8 @@ def insert_data_into_mongodb(mongo_client):
 
 def query_mongo_db(mongo_client):
     database = mongo_client["testdb"]
-    collection = database["fake_data"]
+    # collection = database["fake_data"]
+    collection = database["urban_words"]
     for record in collection.find():
         print(record)
 
@@ -51,7 +52,8 @@ def get_data_from_api():
 def insert_api_response_to_mongodb(mongo_client,response_from_api):
     database = mongo_client["testdb"]
     collection = database["urban_words"]
-    collection.insert_many(response_from_api["list"])
+    for record in response_from_api["list"]:
+        collection.insert_one(record)
 
 
 if __name__ == "__main__":
@@ -59,6 +61,6 @@ if __name__ == "__main__":
     mongo_client = set_mongo_client()
     if mongo_client:
         # insert_data_into_mongodb(mongo_client)
-        # query_mongo_db(mongo_client)
-        insert_api_response_to_mongodb(mongo_client,response_from_api)
+        query_mongo_db(mongo_client)
+        # insert_api_response_to_mongodb(mongo_client,response_from_api)
         

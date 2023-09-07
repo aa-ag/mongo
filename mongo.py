@@ -31,8 +31,8 @@ def insert_data_into_mongodb(mongo_client):
 def query_mongo_db(mongo_client):
     database = mongo_client["testdb"]
     collection = database["fake_data"]
-    example = collection.find_one()
-    print(example)
+    for record in collection.find():
+        print(record)
 
 
 if __name__ == "__main__":

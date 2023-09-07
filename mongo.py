@@ -28,7 +28,15 @@ def insert_data_into_mongodb(mongo_client):
         collection.insert_many(contents)
 
 
+def query_mongo_db(mongo_client):
+    database = mongo_client["testdb"]
+    collection = database["fake_data"]
+    example = collection.find_one()
+    print(example)
+
+
 if __name__ == "__main__":
     mongo_client = set_mongo_client()
     if mongo_client:
-        insert_data_into_mongodb(mongo_client)
+        # insert_data_into_mongodb(mongo_client)
+        query_mongo_db(mongo_client)

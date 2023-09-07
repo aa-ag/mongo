@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 import json
 from pprint import pprint
+import requests
 
 
 load_dotenv()
@@ -39,4 +40,5 @@ if __name__ == "__main__":
     mongo_client = set_mongo_client()
     if mongo_client:
         # insert_data_into_mongodb(mongo_client)
-        query_mongo_db(mongo_client)
+        # query_mongo_db(mongo_client)
+        insert_response_into_mongodb(mongo_client)

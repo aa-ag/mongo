@@ -3,6 +3,7 @@ from pymongo.server_api import ServerApi
 from dotenv import load_dotenv
 import os
 import json
+from pprint import pprint
 
 
 load_dotenv()
@@ -20,11 +21,10 @@ def set_mongo_client():
 
 
 def insert_data_into_mongodb(mongo_client):
-    db = mongo_client["fake_data"]
-    Collection = db["fake_data"]
-    with open('inputs/fake_data.json') as file:
-        file_data = json.load(file)
-    Collection.insert_many(file_data)
+    database = mongo_client["testdb"]
+    collection = database["fake_data"]
+    example = {"name": "John", "lastname": "Doe"}
+    collection.insert_one(example)
 
 
 if __name__ == "__main__":

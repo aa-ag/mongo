@@ -1,4 +1,5 @@
 mongoenv
+.env
 
 # Settings or config
 settings

@@ -48,11 +48,17 @@ def get_data_from_api():
     return response.json()
 
 
+def insert_api_response_to_mongodb(mongo_client,response_from_api):
+    database = mongo_client["testdb"]
+    collection = database["urban_words"]
+    collection.insert_many(response_from_api["list"])
+
+
 if __name__ == "__main__":
     response_from_api = get_data_from_api()
-    print(response_from_api)
-    # mongo_client = set_mongo_client()
-    # if mongo_client:
+    mongo_client = set_mongo_client()
+    if mongo_client:
         # insert_data_into_mongodb(mongo_client)
         # query_mongo_db(mongo_client)
+        insert_api_response_to_mongodb(mongo_client,response_from_api)
         
